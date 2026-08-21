@@ -1,0 +1,56 @@
+<div class="page-header">
+  <button mat-icon-button (click)="cancelar()" aria-label="Volver a la lista">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2 class="page-titulo">
+    {{ modoEdicion() ? 'Editar peluquero' : 'Nuevo peluquero' }}
+  </h2>
+</div>
+
+@if (cargando()) {
+  <div class="spinner-container">
+    <mat-progress-spinner mode="indeterminate" diameter="48" />
+  </div>
+}
+
+@if (!cargando()) {
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="guardar()">
+        <mat-form-field appearance="outline" class="campo-completo">
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="Ej: Tobias"
+            autocomplete="off"
+          />
+          @if (campoName.hasError('required') && campoName.touched) {
+            <mat-error>El nombre es requerido</mat-error>
+          }
+          @if (campoName.hasError('minlength') && campoName.touched) {
+            <mat-error>El nombre debe tener al menos 2 caracteres</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="acciones-form">
+          <button mat-stroked-button type="button" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="guardando()"
+          >
+            @if (guardando()) {
+              <mat-progress-spinner diameter="20" mode="indeterminate" />
+            } @else {
+              {{ modoEdicion() ? 'Guardar cambios' : 'Crear peluquero' }}
+            }
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+}

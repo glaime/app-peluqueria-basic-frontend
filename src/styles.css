@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* Chips de estado de turno */
+.chip-reservado.mat-mdc-chip {
+  --mdc-chip-elevated-container-color: #bbdefb;
+  --mdc-chip-label-text-color: #1565c0;
+}
+
+.chip-finalizado.mat-mdc-chip {
+  --mdc-chip-elevated-container-color: #c8e6c9;
+  --mdc-chip-label-text-color: #2e7d32;
+}
+
+.snackbar-error .mdc-snackbar__surface {
+  background-color: #d32f2f !important;
+}
+
+.snackbar-error .mdc-snackbar__label,
+.snackbar-error .mat-mdc-button {
+  color: #fff !important;
+}

@@ -1,0 +1,115 @@
+<div class="page-header">
+  <button mat-icon-button (click)="cancelar()" aria-label="Volver a la lista">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2 class="page-titulo">
+    {{ modoEdicion() ? 'Editar turno' : 'Nuevo turno' }}
+  </h2>
+</div>
+
+@if (cargando()) {
+  <div class="spinner-container">
+    <mat-progress-spinner mode="indeterminate" diameter="48" />
+  </div>
+}
+
+@if (!cargando()) {
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="guardar()">
+
+        <mat-form-field appearance="outline" class="campo-completo">
+          <mat-label>Fecha</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [min]="minFecha"
+            [matDatepickerFilter]="filtroDiasLaborables"
+            formControlName="fecha"
+            placeholder="DD/MM/YYYY"
+            readonly
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="picker" />
+          <mat-datepicker #picker />
+          @if (campoFecha.hasError('required') && campoFecha.touched) {
+            <mat-error>La fecha es requerida</mat-error>
+          }
+          @if (campoFecha.hasError('fechaPasada') && campoFecha.touched) {
+            <mat-error>No se puede reservar un turno en una fecha pasada</mat-error>
+          }
+          @if (campoFecha.hasError('diaNoLaborable') && campoFecha.touched) {
+            <mat-error>Solo se pueden reservar turnos de martes a sábado</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo-completo">
+          <mat-label>Hora</mat-label>
+          <input
+            matInput
+            type="time"
+            min="09:00"
+            max="17:30"
+            step="1800"
+            formControlName="hora"
+            aria-label="Hora del turno"
+          />
+          @if (campoHora.hasError('required') && campoHora.touched) {
+            <mat-error>La hora es requerida</mat-error>
+          }
+          @if (campoHora.hasError('minutosInvalidos') && campoHora.touched) {
+            <mat-error>Los turnos solo pueden reservarse en punto o y media (ej: 12:00 o 12:30)</mat-error>
+          }
+          @if (campoHora.hasError('fueraDeHorario') && campoHora.touched) {
+            <mat-error>Los turnos solo pueden reservarse de 09:00 a 17:30</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo-completo">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="estadoTurno">
+            @for (estado of estadosTurno; track estado) {
+              <mat-option [value]="estado">{{ estado }}</mat-option>
+            }
+          </mat-select>
+          @if (!modoEdicion()) {
+            <mat-hint>Los turnos se crean en estado RESERVADO</mat-hint>
+          }
+          @if (campoEstado.hasError('required') && campoEstado.touched) {
+            <mat-error>El estado es requerido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo-completo">
+          <mat-label>Peluquero</mat-label>
+          <mat-select formControlName="peluqueroId">
+            @for (peluquero of peluqueros(); track peluquero.id) {
+              <mat-option [value]="peluquero.id">{{ peluquero.name }}</mat-option>
+            }
+          </mat-select>
+          @if (campoPeluquero.hasError('required') && campoPeluquero.touched) {
+            <mat-error>Seleccioná un peluquero</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="acciones-form">
+          <button mat-stroked-button type="button" (click)="cancelar()">
+            Cancelar
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="guardando()"
+          >
+            @if (guardando()) {
+              <mat-progress-spinner diameter="20" mode="indeterminate" />
+            } @else {
+              {{ modoEdicion() ? 'Guardar cambios' : 'Crear turno' }}
+            }
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+}

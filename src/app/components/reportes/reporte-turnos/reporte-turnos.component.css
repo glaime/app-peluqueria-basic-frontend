@@ -1,0 +1,132 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-titulo {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.mensaje-error {
+  color: #d32f2f;
+  padding: 16px;
+  text-align: center;
+}
+
+.filtros-container {
+  margin-bottom: 24px;
+}
+
+.filtro-select {
+  min-width: 220px;
+}
+
+/* KPIs ------------------------------------------------------------------ */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.kpi-card {
+  text-align: center;
+}
+
+.kpi-card mat-card-content {
+  padding: 24px 16px;
+}
+
+.kpi-valor {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.kpi-label {
+  font-size: 0.8rem;
+  color: #616161;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpi-total .kpi-valor    { color: #1565c0; }
+.kpi-reservado .kpi-valor { color: #1976d2; }
+.kpi-finalizado .kpi-valor { color: #2e7d32; }
+
+/* Desglose -------------------------------------------------------------- */
+
+.seccion-titulo {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #424242;
+  margin: 0 0 12px;
+}
+
+.tabla-completa {
+  width: 100%;
+}
+
+/* Barra proporcional (sin librería de charts) */
+.barra-contenedor {
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  margin-top: 6px;
+  max-width: 200px;
+}
+
+.barra-relleno {
+  height: 100%;
+  background: #42a5f5;
+  border-radius: 3px;
+  transition: width 0.35s ease;
+  min-width: 4px;
+}
+
+/* Badges de estado */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge-reservado {
+  background-color: #bbdefb;
+  color: #1565c0;
+}
+
+.badge-finalizado {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+/* Estado vacío */
+.estado-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 64px 0;
+  color: #757575;
+}
+
+.icono-vacio {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #bdbdbd;
+}

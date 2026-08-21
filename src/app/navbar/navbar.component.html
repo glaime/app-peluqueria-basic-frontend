@@ -1,0 +1,67 @@
+<mat-sidenav-container class="contenedor-sidenav">
+  <mat-sidenav
+    #sidenav
+    [mode]="esMobile() ? 'over' : 'side'"
+    [opened]="!esMobile()"
+    class="sidenav"
+  >
+    <div class="sidenav-header">
+      <mat-icon class="sidenav-logo">content_cut</mat-icon>
+      <span class="sidenav-titulo">Peluquería</span>
+    </div>
+
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/turnos"
+        routerLinkActive="nav-activo"
+        (click)="cerrarEnMobile(sidenav)"
+        ariaCurrentWhenActive="page"
+      >
+        <mat-icon matListItemIcon>calendar_today</mat-icon>
+        <span matListItemTitle>Turnos</span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/peluqueros"
+        routerLinkActive="nav-activo"
+        (click)="cerrarEnMobile(sidenav)"
+        ariaCurrentWhenActive="page"
+      >
+        <mat-icon matListItemIcon>person</mat-icon>
+        <span matListItemTitle>Peluqueros</span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/reportes"
+        routerLinkActive="nav-activo"
+        (click)="cerrarEnMobile(sidenav)"
+        ariaCurrentWhenActive="page"
+      >
+        <mat-icon matListItemIcon>bar_chart</mat-icon>
+        <span matListItemTitle>Reportes</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="toolbar">
+      @if (esMobile()) {
+        <button
+          mat-icon-button
+          (click)="sidenav.toggle()"
+          aria-label="Abrir menú de navegación"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
+      <span class="toolbar-titulo">Peluquería App</span>
+    </mat-toolbar>
+
+    <main class="contenido-principal">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
